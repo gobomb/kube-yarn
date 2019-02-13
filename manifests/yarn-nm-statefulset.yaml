@@ -60,10 +60,3 @@ spec:
                 containerName: yarn-nm
                 resource: limits.memory
                 divisor: 1M
-        volumeMounts:
-          - name: hadoop-config
-            mountPath: /tmp/hadoop-config
-      volumes:
-        - name: hadoop-config
-          configMap:
-            name: hadoop-config

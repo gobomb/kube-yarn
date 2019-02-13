@@ -60,10 +60,3 @@ spec:
           limits:
             memory: "2048Mi"
             cpu: "2000m"
-        volumeMounts:
-          - name: hadoop-config
-            mountPath: /tmp/hadoop-config
-      volumes:
-        - name: hadoop-config
-          configMap:
-            name: hadoop-config

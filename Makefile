@@ -29,8 +29,8 @@ ZEPPELIN_FILES_BASE=zeppelin-statefulset.yaml
 ZEPPELIN_FILES=$(addprefix $(MANIFESTS)/,$(ZEPPELIN_FILES_BASE))
 
 all: init create-apps
-init: create-ns create-configmap
-clean: delete-apps delete-configmap delete-ns
+init: create-ns #create-configmap
+clean: delete-apps delete-ns #delete-configmap 
 	@while [[ -n `kubectl get ns -o json | jq 'select(.items[].status.phase=="Terminating") | true'` ]]; do echo "Waiting for $(NAMESPACE) namespace termination" ; sleep 5; done
 
 ### Executable dependencies
