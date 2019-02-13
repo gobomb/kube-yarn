@@ -11,6 +11,9 @@ spec:
   - name: dfs
     port: 9000
     protocol: TCP
+  - name: web
+    port: 50070
+    protocol: http
   # *.hdfs-nn.yarn-cluster.svc.cluster.local
   clusterIP: None
   selector:

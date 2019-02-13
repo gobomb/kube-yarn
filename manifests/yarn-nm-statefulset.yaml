@@ -8,9 +8,9 @@ metadata:
     component: yarn-nm
 spec:
   ports:
-  - port: 8088
-    name: web
-  - port: 8082
+  - port: 8040
+    name: ipc
+  - port: 8042
     name: web2
   # *.yarn-nm.yarn-cluster.svc.cluster.local
   clusterIP: None
