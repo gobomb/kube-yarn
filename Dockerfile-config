@@ -1,0 +1,2 @@
+FROM danisla/hadoop:2.7.3
+COPY artifacts /tmp/hadoop-config
