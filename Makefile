@@ -155,7 +155,7 @@ delete-pf: kubectl delete-zeppelin-pf delete-yarn-rm-pf
 
 HADOOP_VERSION=$(shell grep "image: " manifests/yarn-rm-statefulset.yaml|cut -d'/' -f2|cut -d ':' -f2)
 test: wait-for-pod-yarn-nm-0
-	$(KUBECTL) exec -it yarn-nm-0 -- /usr/local/hadoop/bin/hadoop jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-$(HADOOP_VERSION)-tests.jar TestDFSIO -write -nrFiles 5 -fileSize 128MB -resFile /tmp/TestDFSIOwrite.txt
+	$(KUBECTL) exec -it yarn-nm-0 -- /usr/local/hadoop/bin/hadoop jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-$(HADOOP_VERSION)-tests.jar TestDFSIO -write -nrFiles 25 -fileSize 128MB -resFile /tmp/TestDFSIOwrite.txt
 
 -include localkube.mk
 -include custom.mk

@@ -11,9 +11,6 @@ spec:
   - name: dfs
     port: 9000
     protocol: TCP
-  - name: web
-    port: 50070
-    protocol: http
   # *.hdfs-nn.yarn-cluster.svc.cluster.local
   clusterIP: None
   selector:
@@ -34,7 +31,7 @@ spec:
       terminationGracePeriodSeconds: 0
       containers:
       - name: hdfs-nn
-        image: registry-scu.cloudtogo.cn/hadoop-yarn:0.0.1
+        image: registry-scu.cloudtogo.cn/hadoop-yarn:2.7.3
         command:
            - "/bin/bash"
            - "/tmp/hadoop-config/bootstrap.sh"

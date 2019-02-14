@@ -8,9 +8,9 @@ metadata:
     component: yarn-nm
 spec:
   ports:
-  - port: 8040
-    name: ipc
-  - port: 8042
+  - port: 8088
+    name: web
+  - port: 8082
     name: web2
   # *.yarn-nm.yarn-cluster.svc.cluster.local
   clusterIP: None
@@ -32,7 +32,7 @@ spec:
       terminationGracePeriodSeconds: 0
       containers:
       - name: yarn-nm
-        image: registry-scu.cloudtogo.cn/hadoop-yarn:0.0.1
+        image: registry-scu.cloudtogo.cn/hadoop-yarn:2.7.3
         ports:
         - containerPort: 8088
           name: web

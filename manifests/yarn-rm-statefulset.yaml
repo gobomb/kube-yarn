@@ -45,7 +45,7 @@ spec:
       terminationGracePeriodSeconds: 0
       containers:
       - name: yarn-rm
-        image: registry-scu.cloudtogo.cn/hadoop-yarn:0.0.1
+        image: registry-scu.cloudtogo.cn/hadoop-yarn:2.7.3
         ports:
         - containerPort: 8088
           name: web

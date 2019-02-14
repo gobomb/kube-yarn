@@ -30,7 +30,7 @@ spec:
       terminationGracePeriodSeconds: 0
       containers:
       - name: zeppelin
-        image: registry-scu.cloudtogo.cn/zeppelin:0.0.1 #dylanmei/zeppelin:0.7.2
+        image: registry-scu.cloudtogo.cn/zeppelin:0.7.2 #dylanmei/zeppelin:0.7.2
         env:
         - name: ZEPPELIN_PORT
           value: "8080"
