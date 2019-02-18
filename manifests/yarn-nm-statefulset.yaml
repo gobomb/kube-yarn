@@ -33,6 +33,7 @@ spec:
       containers:
       - name: yarn-nm
         image: registry-scu.cloudtogo.cn/hadoop-yarn:2.7.3
+        imagePullPolicy: Always
         ports:
         - containerPort: 8088
           name: web

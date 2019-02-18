@@ -14,4 +14,8 @@
     <name>mapreduce.jobhistory.webapp.address</name>
     <value>yarn-rm-0.yarn-rm.yarn-cluster.svc.cluster.local:19888</value>
   </property>
+ <property>
+    <name>mapred.child.java.opts</name>
+    <value>-Xmx2048m</value>
+</property>
 </configuration>

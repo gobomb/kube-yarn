@@ -44,17 +44,22 @@ if [[ "${HOSTNAME}" =~ "yarn-rm" ]]; then
   ./start-yarn-rm.sh
 fi
 
+#yarn.nodemanager.vmem-pmem-ratio
 if [[ "${HOSTNAME}" =~ "yarn-nm" ]]; then
   sed -i '/<\/configuration>/d' $HADOOP_PREFIX/etc/hadoop/yarn-site.xml
   cat >> $HADOOP_PREFIX/etc/hadoop/yarn-site.xml <<- EOM
   <property>
     <name>yarn.nodemanager.resource.memory-mb</name>
-    <value>${MY_MEM_LIMIT:-2048}</value>
+    <value>3072</value>
   </property>
 
   <property>
     <name>yarn.nodemanager.resource.cpu-vcores</name>
     <value>${MY_CPU_LIMIT:-2}</value>
+  </property>
+  <property>
+    <name>yarn.nodemanager.vmem-pmem-ratio</name>
+    <value>3</value>
   </property>
 EOM
   echo '</configuration>' >> $HADOOP_PREFIX/etc/hadoop/yarn-site.xml
