@@ -50,16 +50,16 @@ if [[ "${HOSTNAME}" =~ "yarn-nm" ]]; then
   cat >> $HADOOP_PREFIX/etc/hadoop/yarn-site.xml <<- EOM
   <property>
     <name>yarn.nodemanager.resource.memory-mb</name>
-    <value>3072</value>
+    <value>4096</value>
   </property>
 
   <property>
     <name>yarn.nodemanager.resource.cpu-vcores</name>
-    <value>${MY_CPU_LIMIT:-2}</value>
+    <value>${MY_CPU_LIMIT:-4}</value>
   </property>
   <property>
     <name>yarn.nodemanager.vmem-pmem-ratio</name>
-    <value>3</value>
+    <value>5</value>
   </property>
 EOM
   echo '</configuration>' >> $HADOOP_PREFIX/etc/hadoop/yarn-site.xml
