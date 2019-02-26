@@ -34,6 +34,16 @@ if [[ "${HOSTNAME}" =~ "hdfs-dn" ]]; then
   count=0 && while [[ $count -lt 15 && -z `curl -sf http://hdfs-nn:50070` ]]; do echo "Waiting for hdfs-nn" ; ((count=count+1)) ; sleep 2; done
   [[ $count -eq 15 ]] && echo "Timeout waiting for hdfs-nn, exiting." && exit 1
   $HADOOP_PREFIX/sbin/hadoop-daemon.sh start datanode
+
+  if [[ "${HOSTNAME}" =~ "hdfs-dn-0" ]]; then
+    echo "hdfs-dn start put"
+    hdfs dfs -ls /input
+    if [[ $? != 0 ]]; then
+       hdfs dfs -mkdir /input
+    fi
+    hdfs dfs -put /tmp/oneGtext.txt /input/
+    echo "hdfs-dn put ok"
+  fi
 fi
 
 if [[ "${HOSTNAME}" =~ "yarn-rm" ]]; then
@@ -43,6 +53,19 @@ if [[ "${HOSTNAME}" =~ "yarn-rm" ]]; then
   chmod +x start-yarn-rm.sh
   ./start-yarn-rm.sh
 fi
+
+# to solve the problem: Container [pid=31148,containerID=container_1550828211322_0009_01_000016] is running beyond physical memory limits. Current usage: 1.0 GB of 1 GB physical memory used; 3.7 GB of 5 GB virtual memory used. Killing container.
+  sed -i '/<\/configuration>/d' $HADOOP_PREFIX/etc/hadoop/mapred-site.xml
+  cat >> $HADOOP_PREFIX/etc/hadoop/mapred-site.xml <<- EOM
+  <property>
+    <name>mapreduce.reduce.memory.mb</name>
+    <value>4096</value>
+  </property>
+
+EOM
+  echo '</configuration>' >> $HADOOP_PREFIX/etc/hadoop/mapred-site.xml
+
+
 
 #yarn.nodemanager.vmem-pmem-ratio
 if [[ "${HOSTNAME}" =~ "yarn-nm" ]]; then
