@@ -67,8 +67,9 @@ EOM
 
 
 
-#yarn.nodemanager.vmem-pmem-ratio
-if [[ "${HOSTNAME}" =~ "yarn-nm" ]]; then
+# yarn.nodemanager.vmem-pmem-ratio
+# change "yarn-nm" to "hdfs-dn"
+if [[ "${HOSTNAME}" =~ "hdfs-dn" ]]; then
   sed -i '/<\/configuration>/d' $HADOOP_PREFIX/etc/hadoop/yarn-site.xml
   cat >> $HADOOP_PREFIX/etc/hadoop/yarn-site.xml <<- EOM
   <property>
