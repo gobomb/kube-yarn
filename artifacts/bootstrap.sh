@@ -54,19 +54,6 @@ if [[ "${HOSTNAME}" =~ "yarn-rm" ]]; then
   ./start-yarn-rm.sh
 fi
 
-# to solve the problem: Container [pid=31148,containerID=container_1550828211322_0009_01_000016] is running beyond physical memory limits. Current usage: 1.0 GB of 1 GB physical memory used; 3.7 GB of 5 GB virtual memory used. Killing container.
-  sed -i '/<\/configuration>/d' $HADOOP_PREFIX/etc/hadoop/mapred-site.xml
-  cat >> $HADOOP_PREFIX/etc/hadoop/mapred-site.xml <<- EOM
-  <property>
-    <name>mapreduce.reduce.memory.mb</name>
-    <value>4096</value>
-  </property>
-
-EOM
-  echo '</configuration>' >> $HADOOP_PREFIX/etc/hadoop/mapred-site.xml
-
-
-
 # yarn.nodemanager.vmem-pmem-ratio
 # change "yarn-nm" to "hdfs-dn"
 if [[ "${HOSTNAME}" =~ "hdfs-dn" ]]; then
@@ -74,7 +61,7 @@ if [[ "${HOSTNAME}" =~ "hdfs-dn" ]]; then
   cat >> $HADOOP_PREFIX/etc/hadoop/yarn-site.xml <<- EOM
   <property>
     <name>yarn.nodemanager.resource.memory-mb</name>
-    <value>4096</value>
+    <value>2048</value>
   </property>
 
   <property>
