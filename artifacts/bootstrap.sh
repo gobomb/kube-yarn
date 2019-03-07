@@ -59,7 +59,7 @@ if [[ "${HOSTNAME}" =~ "hdfs-dn" ]]; then
   fi
 fi
 
-sed -i '/<\/configuration>/d' $HADOOP_PREFIX/etc/hadoop/yarn-site.xml
+#sed -i '/<\/configuration>/d' $HADOOP_PREFIX/etc/hadoop/yarn-site.xml
 if [[ "${HOSTNAME}" =~ "yarn-rm" ]]; then
   sed -i s/yarn-rm/0.0.0.0/ $HADOOP_PREFIX/etc/hadoop/yarn-site.xml
   cp ${CONFIG_DIR}/start-yarn-rm.sh $HADOOP_PREFIX/sbin/
