@@ -54,7 +54,7 @@ if [[ "${HOSTNAME}" =~ "hdfs-dn" ]]; then
     if [[ $? != 0 ]]; then
        hdfs dfs -mkdir /input
     fi
-    hdfs dfs -put /tmp/oneGtext.txt /input/
+    hdfs dfs -put /root/tmp/oneGtext.txt /input/
     echo "hdfs-dn put ok"
   fi
 fi

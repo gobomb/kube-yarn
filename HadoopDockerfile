@@ -1,3 +1,2 @@
 FROM danisla/hadoop:2.8.3
 COPY artifacts /tmp/hadoop-config
-COPY oneGtext.txt /tmp
