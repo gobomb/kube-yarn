@@ -21,6 +21,19 @@ done
 # installing libraries if any - (resource urls added comma separated to the ACP system variable)
 cd $HADOOP_PREFIX/share/hadoop/common ; for cp in ${ACP//,/ }; do  echo == $cp; curl -LO $cp ; done; cd -
 
+
+sed -i '/<\/configuration>/d' $HADOOP_PREFIX/etc/hadoop/mapred-site.xml
+cat >> $HADOOP_PREFIX/etc/hadoop/mapred-site.xml <<- EOM
+    <property>
+    <name>mapreduce.reduce.memory.mb</name>
+    <value>3000</value>
+    <description>每个Reduce任务的物理内存限制</description>
+  </property>
+EOM
+echo '</configuration>' >> $HADOOP_PREFIX/etc/hadoop/mapred-site.xml
+
+
+
 if [[ "${HOSTNAME}" =~ "hdfs-nn" ]]; then
   mkdir -p /root/hdfs/namenode
   $HADOOP_PREFIX/bin/hdfs namenode -format -force -nonInteractive
@@ -46,6 +59,7 @@ if [[ "${HOSTNAME}" =~ "hdfs-dn" ]]; then
   fi
 fi
 
+sed -i '/<\/configuration>/d' $HADOOP_PREFIX/etc/hadoop/yarn-site.xml
 if [[ "${HOSTNAME}" =~ "yarn-rm" ]]; then
   sed -i s/yarn-rm/0.0.0.0/ $HADOOP_PREFIX/etc/hadoop/yarn-site.xml
   cp ${CONFIG_DIR}/start-yarn-rm.sh $HADOOP_PREFIX/sbin/
@@ -61,7 +75,7 @@ if [[ "${HOSTNAME}" =~ "hdfs-dn" ]]; then
   cat >> $HADOOP_PREFIX/etc/hadoop/yarn-site.xml <<- EOM
   <property>
     <name>yarn.nodemanager.resource.memory-mb</name>
-    <value>2048</value>
+    <value>4096</value>
   </property>
 
   <property>
