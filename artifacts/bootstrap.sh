@@ -54,7 +54,7 @@ if [[ "${HOSTNAME}" =~ "hdfs-dn" ]]; then
     if [[ $? != 0 ]]; then
        hdfs dfs -mkdir /input
     fi
-    wget data-loader:8102/oneGtext.txt -o /root/tmp/oneGtext.txt
+    wget data-loader:8102/oneGtext.txt -O /root/tmp/oneGtext.txt
     hdfs dfs -put /root/tmp/oneGtext.txt /input/ &
     echo "hdfs-dn put ok"
   fi
