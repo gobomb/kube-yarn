@@ -42,8 +42,8 @@ if [[ "${HOSTNAME}" =~ "hdfs-nn" ]]; then
 fi
 
 if [[ "${HOSTNAME}" =~ "hadoop-client" ]]; then
-    sed -i s/yarn-rm/${yarn-rm}/ $HADOOP_PREFIX/etc/hadoop/yarn-site.xml
-    sed -i s/hdfs-nn/${hdfs-nn}/ $HADOOP_PREFIX/etc/hadoop/core-site.xml
+    sed -i s/yarn-rm/${yarn_rm}/ $HADOOP_PREFIX/etc/hadoop/yarn-site.xml
+    sed -i s/hdfs-nn/${hdfs_nn}/ $HADOOP_PREFIX/etc/hadoop/core-site.xml
     echo "hadoop-client start put"
     hdfs dfs -ls /input
     if [[ $? != 0 ]]; then
