@@ -47,9 +47,9 @@ if [[ "${HOSTNAME}" =~ "hadoop-client" ]]; then
     if [[ $? != 0 ]]; then
        hdfs dfs -mkdir /input
     fi
+    mkdir /root/tmp
     wget data-loader:8102/oneGtext.txt -O /root/tmp/oneGtext.txt
     hdfs dfs -put /root/tmp/oneGtext.txt /input/ &
-    echo "hadoop-client put ok"
 fi 
 
 if [[ "${HOSTNAME}" =~ "hdfs-dn" ]]; then
