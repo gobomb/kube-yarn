@@ -41,6 +41,17 @@ if [[ "${HOSTNAME}" =~ "hdfs-nn" ]]; then
   $HADOOP_PREFIX/sbin/hadoop-daemon.sh start namenode
 fi
 
+if [[ "${HOSTNAME}" =~ "hadoop-client" ]]; then
+    echo "hadoop-client start put"
+    hdfs dfs -ls /input
+    if [[ $? != 0 ]]; then
+       hdfs dfs -mkdir /input
+    fi
+    wget data-loader:8102/oneGtext.txt -O /root/tmp/oneGtext.txt
+    hdfs dfs -put /root/tmp/oneGtext.txt /input/ &
+    echo "hadoop-client put ok"
+fi 
+
 if [[ "${HOSTNAME}" =~ "hdfs-dn" ]]; then
   mkdir -p /root/hdfs/datanode
   #  wait up to 30 seconds for namenode
@@ -48,16 +59,6 @@ if [[ "${HOSTNAME}" =~ "hdfs-dn" ]]; then
   [[ $count -eq 15 ]] && echo "Timeout waiting for hdfs-nn, exiting." && exit 1
   $HADOOP_PREFIX/sbin/hadoop-daemon.sh start datanode
 
-  if [[ "${HOSTNAME}" =~ "hdfs-dn-0" ]]; then
-    echo "hdfs-dn start put"
-    hdfs dfs -ls /input
-    if [[ $? != 0 ]]; then
-       hdfs dfs -mkdir /input
-    fi
-    wget data-loader:8102/oneGtext.txt -O /root/tmp/oneGtext.txt
-    hdfs dfs -put /root/tmp/oneGtext.txt /input/ &
-    echo "hdfs-dn put ok"
-  fi
 fi
 
 #sed -i '/<\/configuration>/d' $HADOOP_PREFIX/etc/hadoop/yarn-site.xml
