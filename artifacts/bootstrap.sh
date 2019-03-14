@@ -50,7 +50,7 @@ if [[ "${HOSTNAME}" =~ "hadoop-client" ]]; then
        hdfs dfs -mkdir /input
     fi
     mkdir /root/tmp
-    wget data-loader:8102/oneGtext.txt -O /root/tmp/oneGtext.txt
+    wget ${DATALOADER}:${DATALOADER_PORT}/oneGtext.txt -O /root/tmp/oneGtext.txt
     hdfs dfs -put /root/tmp/oneGtext.txt /input/ &
 fi 
 
